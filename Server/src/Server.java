@@ -18,6 +18,9 @@ public class Server {
             System.out.println("Server started!");
             System.out.println("Listening on port: "+server.getLocalPort());
 
+            while (true){
+
+
             try(
                     Socket socket=server.accept();
                     BufferedWriter writer=new BufferedWriter(
@@ -31,18 +34,19 @@ public class Server {
                         System.out.println("Client connected");
 
 
-                String request = "";
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    request += line+"\n";
-                    if (line.isEmpty()) {
-                        break;
-                    }
-                }
+                String request = reader.readLine();//"";
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    request += line+"\n";
+//                    if (line.isEmpty()) {
+//                        break;
+//                    }
+//                }
 
                 if (request.isEmpty()) {
                     System.out.println("4. No data received from client.");
                 } else {
+
                     System.out.println("4. Data received from client: " + request);
                     String response="Hello from server: "+request;
                     System.out.println(response);
@@ -54,11 +58,9 @@ public class Server {
                 System.out.println("Client disconnected");
 
             }
+            }
 
 
-
-//            writer.close();
-//            socket.close();
         }catch (IOException e){
             throw new RuntimeException("Server stopped "+e);
         }
